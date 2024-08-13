@@ -9,8 +9,12 @@ data class RoomData(
     val crypts: Int,
     val secrets: Int,
     val trappedChests: Int,
+    val dirCores: List<Int>?,
+    val turn: List<Int>?,
+    val distance: Int?,
+    val strict: Boolean,
 ) {
     companion object {
-        fun createUnknown(type: RoomType) = RoomData("Unknown", type, emptyList(), 0, 0, 0)
+        fun createUnknown(type: RoomType) = RoomData("Unknown", type, emptyList(), 0, 0, 0, null, null, null, false)
     }
 }

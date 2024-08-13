@@ -1,7 +1,7 @@
 package funnymap.core.map
 
 enum class RoomType {
-    BLOOD, CHAMPION, ENTRANCE, FAIRY, NORMAL, PUZZLE, RARE, TRAP;
+    BLOOD, CHAMPION, ENTRANCE, FAIRY, NORMAL, PUZZLE, RARE, TRAP, BOSS;
 
     companion object {
         fun fromMapColor(color: Int): RoomType? = when (color) {

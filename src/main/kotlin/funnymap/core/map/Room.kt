@@ -4,9 +4,12 @@ import funnymap.config.Config
 import funnymap.core.RoomData
 import funnymap.features.dungeon.MapRender
 import java.awt.Color
+import java.awt.Point
 
 class Room(override val x: Int, override val z: Int, var data: RoomData) : Tile {
     var core = 0
+    var direction: Direction? = null
+    var corner: Point? = null
     var isSeparator = false
     var uniqueRoom: UniqueRoom? = null
     override var state: RoomState = RoomState.UNDISCOVERED

@@ -8,6 +8,7 @@ import funnymap.events.NewRoomEvent
 import funnymap.events.ScannedTileEvent
 import funnymap.features.dungeon.DungeonScan.scan
 import funnymap.utils.Location.dungeonFloor
+import funnymap.utils.Location.setCurrentRoom
 import funnymap.utils.Utils
 import funnymap.utils.Utils.equalsOneOf
 import net.minecraft.init.Blocks
@@ -81,6 +82,7 @@ object DungeonScan {
         if (MapUpdate.roomAdded) {
             MapUpdate.updateUniques()
         }
+        setCurrentRoom(ScanUtils.getRoomCentre(mc.thePlayer.posX.toInt(), mc.thePlayer.posZ.toInt()))
 
         if (allChunksLoaded) {
             if (Config.scanChatInfo) {
@@ -125,6 +127,9 @@ object DungeonScan {
             rowEven && columnEven -> {
                 val roomCore = ScanUtils.getCore(x, z)
                 Room(x, z, ScanUtils.getRoomData(roomCore) ?: return null).apply {
+                    Dungeon.Info.rooms++
+                    direction = ScanUtils.getDirection(x, z, data, roomCore)
+                    if (data.type == RoomType.FAIRY) Dungeon.Info.fairyPos = Pair(x, z)
                     core = roomCore
                 }
             }

@@ -115,6 +115,10 @@ object Dungeon {
         !Info.mimicFound && Location.dungeonFloor.equalsOneOf(6, 7) && !Config.legitMode
 
     object Info {
+        var rooms = 0
+        var fairyOpened = false
+        var fairyPos: Pair<Int, Int>? = null
+
         // 6 x 6 room grid, 11 x 11 with connections
         val dungeonList = Array<Tile>(121) { Unknown(0, 0) }
         val uniqueRooms = mutableSetOf<UniqueRoom>()
@@ -145,6 +149,10 @@ object Dungeon {
             startTime = 0L
             ended = false
             keys = 0
+
+            rooms = 0
+            fairyOpened = false
+            fairyPos = null
         }
     }
 }
