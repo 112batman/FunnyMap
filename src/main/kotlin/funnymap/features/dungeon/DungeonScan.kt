@@ -4,12 +4,15 @@ import funnymap.FunnyMap
 import funnymap.FunnyMap.mc
 import funnymap.config.Config
 import funnymap.core.map.*
+import funnymap.events.NewRoomEvent
+import funnymap.events.ScannedTileEvent
 import funnymap.features.dungeon.DungeonScan.scan
 import funnymap.utils.Location.dungeonFloor
 import funnymap.utils.Utils
 import funnymap.utils.Utils.equalsOneOf
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
+import net.minecraftforge.common.MinecraftForge
 import kotlin.math.ceil
 
 /**
@@ -66,9 +69,11 @@ object DungeonScan {
                             UniqueRoom(x, z, it)
                         }
                         MapUpdate.roomAdded = true
+                        MinecraftForge.EVENT_BUS.post(NewRoomEvent(it))
                     }
                     Dungeon.Info.dungeonList[z * 11 + x] = it
                     MapRenderList.renderUpdated = true
+                    MinecraftForge.EVENT_BUS.post(ScannedTileEvent(it))
                 }
             }
         }

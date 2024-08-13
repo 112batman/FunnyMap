@@ -6,7 +6,6 @@ import funnymap.features.dungeon.*
 import funnymap.ui.GuiRenderer
 import funnymap.utils.Location
 import funnymap.utils.RenderUtils
-import funnymap.utils.UpdateChecker
 import gg.essential.api.EssentialAPI
 import gg.essential.vigilance.gui.SettingsGui
 import kotlinx.coroutines.CoroutineScope
@@ -62,20 +61,6 @@ object FunnyMap {
         ).forEach(MinecraftForge.EVENT_BUS::register)
         RenderUtils
         ClientRegistry.registerKeyBinding(toggleLegitKey)
-    }
-
-    @Mod.EventHandler
-    fun postInit(event: FMLLoadCompleteEvent) = scope.launch {
-        if (UpdateChecker.hasUpdate() > 0) {
-            EssentialAPI.getNotifications()
-                .push(MOD_NAME, "New release available on Github. Click to open download link.", 10f, action = {
-                    try {
-                        Desktop.getDesktop().browse(URI("https://github.com/Harry282/FunnyMap/releases"))
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                })
-        }
     }
 
     @SubscribeEvent

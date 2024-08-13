@@ -10,6 +10,7 @@ import funnymap.utils.Utils.equalsOneOf
 import funnymap.utils.Utils.itemID
 import gg.essential.elementa.utils.withAlpha
 import net.minecraft.client.gui.Gui
+import net.minecraft.client.gui.MapItemRenderer
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.WorldRenderer

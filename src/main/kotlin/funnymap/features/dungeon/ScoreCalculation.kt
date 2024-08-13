@@ -2,6 +2,7 @@ package funnymap.features.dungeon
 
 import funnymap.FunnyMap.mc
 import funnymap.config.Config
+import funnymap.events.ScoreChangeEvent
 import funnymap.features.dungeon.RunInformation.completedRoomsPercentage
 import funnymap.features.dungeon.RunInformation.mimicKilled
 import funnymap.features.dungeon.RunInformation.secretPercentage
@@ -10,6 +11,7 @@ import funnymap.utils.APIUtils
 import funnymap.utils.Location
 import funnymap.utils.Utils
 import gg.essential.universal.UChat
+import net.minecraftforge.common.MinecraftForge
 import kotlin.math.roundToInt
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
@@ -22,7 +24,11 @@ object ScoreCalculation {
     var message270 = false
 
     fun updateScore() {
-        score = getSkillScore() + getExplorationScore() + getSpeedScore(RunInformation.timeElapsed) + getBonusScore()
+        val newScore = getSkillScore() + getExplorationScore() + getSpeedScore(RunInformation.timeElapsed) + getBonusScore()
+        if(score != newScore) {
+            MinecraftForge.EVENT_BUS.post(ScoreChangeEvent(newScore))
+        }
+        score = newScore
         if (score >= 300 && !message300) {
             message300 = true
             message270 = true

@@ -2,6 +2,7 @@ package funnymap.features.dungeon
 
 import funnymap.FunnyMap.mc
 import funnymap.config.Config
+import funnymap.events.MimicKilledEvent
 import funnymap.features.dungeon.ScanUtils.getRoomFromPos
 import gg.essential.universal.UChat
 import net.minecraft.block.state.IBlockState
@@ -10,6 +11,7 @@ import net.minecraft.entity.monster.EntityZombie
 import net.minecraft.init.Blocks
 import net.minecraft.tileentity.TileEntityChest
 import net.minecraft.util.BlockPos
+import net.minecraftforge.common.MinecraftForge
 
 object MimicDetector {
 
@@ -40,6 +42,7 @@ object MimicDetector {
     fun setMimicKilled() {
         RunInformation.mimicKilled = true
         if (Config.mimicMessageEnabled) UChat.say("/pc ${Config.mimicMessage}")
+        MinecraftForge.EVENT_BUS.post(MimicKilledEvent())
     }
 
     fun isMimic(entity: Entity): Boolean {

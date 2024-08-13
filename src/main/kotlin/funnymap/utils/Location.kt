@@ -3,6 +3,8 @@ package funnymap.utils
 import funnymap.FunnyMap.mc
 import funnymap.config.Config
 import funnymap.events.ChatEvent
+import funnymap.events.EnterBossEvent
+import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.network.FMLNetworkEvent
@@ -66,9 +68,13 @@ object Location {
 
     @SubscribeEvent
     fun onChat(event: ChatEvent) {
+        val wasInBoss = inBoss
         if (event.packet.type.toInt() == 2 || !inDungeons) return
         if (event.text.startsWith("[BOSS] Maxor: ")) inBoss = true
         if (entryMessages.any { it == event.text }) inBoss = true
+        if(inBoss && !wasInBoss) {
+            MinecraftForge.EVENT_BUS.post(EnterBossEvent())
+        }
     }
 
     @SubscribeEvent

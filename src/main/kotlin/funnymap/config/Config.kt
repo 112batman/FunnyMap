@@ -186,6 +186,15 @@ object Config : Vigilant(File("./config/funnymap/config.toml"), "Funny Map", sor
     var playerHeadScale = 1f
 
     @Property(
+        name = "Render own player as arrow",
+        type = PropertyType.SWITCH,
+        description = "Renders yourself as an arrow on the map",
+        category = "Map",
+        subcategory = "Render"
+    )
+    var renderOwnHeadAsArrow = false
+
+    @Property(
         name = "Player Name Scale",
         type = PropertyType.DECIMAL_SLIDER,
         description = "Scale of player names relative to head size.",
